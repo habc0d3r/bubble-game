@@ -22,7 +22,11 @@ function runTimer() {
       timerDisplay.innerText = timer;
     } else {
       clearInterval(timerInt);
-      replayGame();
+      document.querySelector("#pbtm").innerHTML = `<div id="replay-box">
+      <h1 id="game-over">Game Over!</h1>
+      <button id="replay-btn">Replay</button>
+      </div>`;
+      setTimeout(replayGame, 0)
     }
   }, 1000);
 }
@@ -37,26 +41,6 @@ function increaseScore() {
   scoreDisplay.innerText = score;
 }
 
-function replayGame() {
-  document.querySelector("#pbtm").innerHTML = `<div id="replay-box">
-      <h1 id="game-over">Game Over!</h1>
-      <button id="replay-btn">Replay</button>
-      </div>`;
-  setTimeout(function () {
-    document
-      .querySelector("#replay-btn")
-      .addEventListener("click", function () {
-        makeBubble();
-        getNewHit();
-        runTimer();
-        timer = 60;
-        timerDisplay.innerText = timer;
-        score = 0;
-        scoreDisplay.innerText = score;
-      });
-  }, 0);
-}
-
 document.querySelector("#pbtm").addEventListener("click", function (dets) {
   let num = Number(dets.target.textContent);
   if (num === hitrn) {
@@ -65,6 +49,20 @@ document.querySelector("#pbtm").addEventListener("click", function (dets) {
     getNewHit();
   }
 });
+
+function replayGame() {
+  document
+    .querySelector("#replay-btn")
+    .addEventListener("click", function () {
+      makeBubble();
+      getNewHit();
+      runTimer();
+      timer = 60;
+      timerDisplay.innerText = timer;
+      score = 0;
+      scoreDisplay.innerText = score;
+    });
+}
 
 makeBubble();
 getNewHit();
